@@ -21,10 +21,10 @@ namespace ClientLibrary.Services.Implementations
         public async Task<LoginResponse> SignInAsync(Login user)
         {
             var client = httpClient.GetPublicHttpClient();
-            var result = await client.PostAsJsonAsync($"{AuthUrl}/login", user);
-            if (!result.IsSuccessStatusCode) return new LoginResponse(false, "Login error");
+            var responseMessage = await client.PostAsJsonAsync($"{AuthUrl}/login", user);
+            if (!responseMessage.IsSuccessStatusCode) return new LoginResponse(false, "Login error");
 
-            return await result.Content.ReadFromJsonAsync<LoginResponse>();
+            return await responseMessage.Content.ReadFromJsonAsync<LoginResponse>();
         }
 
 
